@@ -1,0 +1,99 @@
+# simulated trajectory parameters
+sim_traj_type: 1 # 0 for wnoj, 1 for sinusoid
+
+sim_wnoj_x_init: [0.0, 0.0, 2.0, 0.0, 0.0, 0.0]
+sim_wnoj_v_init: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+sim_wnoj_a_init: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+x_amplitude: 0.5
+x_period: 4.0
+x_offset: 0.0
+x_phase: 0.0 # as a fraction of pi
+y_amplitude: 0.5
+y_period: 4.0
+y_offset: 0.0
+y_phase: 0.5 # as a fraction of pi
+z_amplitude: 0.25
+z_period: 1.0
+z_offset: -2.0
+z_phase: 0.0
+roll_amplitude: 0.0
+roll_period: 2.0
+roll_offset: 0.1 # as a fraction of pi
+roll_phase: 0.0
+pitch_amplitude: 0.0
+pitch_period: 2.0
+pitch_offset: 0.0
+pitch_phase: 0.5 # as a fraction of pi
+yaw_slope: -0.5 # as a fraction of pi
+yaw_offset: 0.0
+
+# IMU parameters
+imu_frequency: 100.0
+gyro_stdev: 0.005
+accel_stdev: 0.005
+gyro_walk_stdev: 0.005
+accel_walk_stdev: 0.002
+g: 9.81
+gyro_bias_init: [0.0, 0.0, 0.0]
+accel_bias_init: [0.0, 0.0, 0.0]
+
+# camera parameters
+camera_frequency: 10.0
+pix_stdev: 0.5
+pos_stdev: 0.05
+rot_stdev: 0.05
+sim_constant_cov: false
+est_constant_cov: false
+fx: 620.0
+fy: 620.0
+cx: 320.0
+cy: 240.0
+r_imu_c: [0.0, 0.0, 0.0] # in degrees, so that R_imu^c = Exp(r_imu_c * pi)
+p_imu_c: [0.0, 0.0, 0.1]
+
+# camera field of view
+max_range: 10.0
+max_azimuth: 60.0 # in degrees
+max_elevation: 60.0 # in degrees
+assert_facing_camera: true
+apriltag_side_length: 0.4
+
+# sim parameters
+sim_end_time: 10.0
+sim_period: 0.001
+
+# residuals to use
+use_imu: true
+use_mp: true
+
+# opt params
+max_num_iterations: 100
+
+# monte carlo
+num_monte_carlo_runs: 100
+seed_random: true # setting this to false will make it so the same run happens every time
+
+# logging
+log_results: false
+log_directory: "../data/sim/imu/"
+print_est_prog: false
+
+# spline estimator params
+spline_k: 4
+spline_dt: 0.1
+use_bias_splines: false
+bias_spline_k: 4
+bias_spline_dt: 1.0
+spline_son_mp_dt: 0.3 # this is used as se3 mp dt for se3 splines
+spline_rn_mp_dt: 0.3 # only used for so3xr3 splines
+spline_son_mp_type: 1 # 0 for WNOA, 1 for WNOJ (this is used as se3 mp dt for se3 splines)
+spline_rn_mp_type: 1 # 0 for WNOA, 1 for WNOJ (only used for so3xr3 splines)
+
+# gp estimator params
+q_gp_rot: 1.5 # these are also used for the spline motion priors
+q_gp_pos: 5.0
+n_gp: 1 # every nth image will be used as an estimation parameter
+
+# SO(3) gp estimator type (only for SO(3)xR3 GP estimation)
+gp_son_type: 1 # 0 for WNOA, 1 for WNOJ

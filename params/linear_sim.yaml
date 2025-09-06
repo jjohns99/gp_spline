@@ -1,0 +1,68 @@
+# trajectory initial conditions
+x0: [0.0, 0.0]
+v0: [1.0, 0.0]
+a0: [0.0, 0.0]
+
+# model type (0 = wnoa, 1 = wnoj)
+model_type: 1
+
+# simulated trajectory type (0 = wnoa/wnoj, 1 = sinusoid)
+sim_traj_type: 0
+
+# sinusoid trajectory params (if used)
+x_amp: 1.0
+x_freq: 0.2
+x_phase: 0.0
+x_offset: 0.0
+y_amp: 1.0
+y_freq: 0.2
+y_phase: 90.0
+y_offset: 0.0
+
+# trajectory noise (if sim_traj_type = 0)
+# use these for wnoj or wnoa
+x_stdev: 1.0
+y_stdev: 0.1
+
+# use these for sinusoid
+# x_stdev: 1.0
+# y_stdev: 1.0
+
+# measurements
+pos_meas_freq: 100
+pos_meas_x_stdev: 0.01
+pos_meas_y_stdev: 0.01
+
+# sim timing
+sim_end_time: 20.0
+sim_time_step: 0.0001
+
+# monte carlo
+num_monte_carlo_runs: 50
+
+# gp estimator
+gp_n: 2000 # for mc, use [2000, 1000, 600, 300, 150, 30, 15, 3]
+gp_use_motion_priors: true
+
+sweep_params: true
+gp_n_start: 3
+gp_n_end: 2000
+
+# spline estimator 
+spline_k: 4
+spline_dt: 7.0 # for mc, use [7.0, 5.0, 3.5, 2.0, 1.0, 0.5, 0.1, 0.05, 0.01]
+spline_use_motion_priors: true
+spline_motion_prior_dt: 21.0
+
+spline_dt_start: 0.01
+spline_dt_end: 7.0
+# set motion prior dt to 2 (WNOA) or 3 (WNOJ) times spline_dt during sweep
+adjust_spline_motion_prior_dt: true
+
+# logging
+log_results: true
+log_directory: "../data/linear_sim/less_noisy/"
+log_monte_carlo: false
+log_mc_sweep: true
+print_est_prog: false
+print_mc_run: false

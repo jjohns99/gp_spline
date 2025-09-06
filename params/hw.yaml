@@ -1,0 +1,80 @@
+# sensor parameters
+# fx: 997.8967641907589
+# fy: 996.3644388925419
+# cx: 663.6914204863106
+# cy: 467.9426587276698
+# T_imu_cam: [0.99955136, 0.02954649,  0.00490738,  0.00341387,
+#            -0.02954229,  0.9995631, -0.00092649,  0.00000002,
+#            -0.00493261,  0.0007811,  0.99998753, -0.11841752,
+#                     0.,         0.,          0.,          1.]
+# timeshift_cam_imu: -0.05610156288132534
+fx: 607.5391406321571
+fy: 607.9870929546429
+cx: 312.5832809272231
+cy: 241.2563459076099
+T_imu_cam: [0.9999005,  0.00479003,  0.01326819,  0.01571363,
+          -0.00506716,  0.99976806,  0.02093217, -0.00533074,
+          -0.01316484, -0.02099732,  0.99969285, -0.01824329,
+                  0.0,         0.0,         0.0,         1.0]
+timeshift_cam_imu: 0.0
+use_constant_pose_covariance: false
+sigma_april_trans: 0.1 # these will only be used if use_constant_pose_covariance is true
+sigma_april_rot: 0.05
+sigma_pix: 0.25 # otherwise this will be used
+sigma_gyro: 0.1
+sigma_accel: 0.1
+g: 9.81
+apriltag_side_length: 0.1935
+
+# data parameters
+data_path: "../data/hw/in/"
+data_start_times: [2.0, 12.0, 23.0, 35.0, 45.0, 55.0, 65.0, 75.0, 85.0, 95.0, 105.0]
+data_end_times: [12.0, 22.0, 33.0, 45.0, 55.0, 65.0, 75.0, 85.0, 95.0, 105.0, 115.0]
+# data_start_times: [75.0]
+# data_end_times: [95.0]
+apriltag_ids: [0, 1, 2, 3] # apriltag ids in observed data
+
+# residuals to use
+use_imu: true
+use_mp: true
+
+# logging
+log_results: true
+log_directory: "../data/hw/out/"
+print_est_prog: false
+max_num_iterations: 100
+sample_period: 0.001
+
+# spline estimator params
+spline_k: 3
+spline_dt: 0.1
+use_bias_splines: false
+bias_spline_k: 4
+bias_spline_dt: 1.0
+spline_son_mp_dt: 0.3 # this is used as se3 mp dt for se3 splines
+spline_rn_mp_dt: 0.3 # only used for so3xr3 splines
+spline_son_mp_type: 1 # 0 for WNOA, 1 for WNOJ (this is used as se3 mp dt for se3 splines)
+spline_rn_mp_type: 1 # 0 for WNOA, 1 for WNOJ (only used for so3xr3 splines)
+
+# gp estimator params
+q_gp_rot: 1.0 # these are also used for the spline motion priors
+q_gp_pos: 1.0
+n_gp: 1 # every nth image will be used as an estimation parameter
+
+# SO(3) gp estimator type (only for SO(3)xR3 GP estimation)
+gp_son_type: 1 # 0 for WNOA, 1 for WNOJ
+
+# mocap to imu calibration
+# T_imu_mocap: [0.9991,   0.0122737,   0.0406079,  -0.0227911,
+#           -0.0135128,    0.999447,   0.0303808, -0.00239121,
+#           -0.0402125,  -0.0309022,    0.998713, -0.00288912,
+#                  0.0,         0.0,         0.0,         1.0]
+# timeshift_mocap_cam: -0.0170811
+T_imu_mocap: [0.999933,   0.0023164,  -0.0113501, -0.00778878,
+           -0.00189012,    0.999298,   0.0374248, -0.00952815,
+             0.0114288,  -0.0374008,    0.999235, -0.00796279,
+                     0,           0,           0,           1]
+timeshift_mocap_cam: 0.000776628 # this is after time-shifting mocap timestamps -0.94s
+calibrate_mocap_tx: false
+low_pass_filter_mocap_orientation: false
+mocap_lpf_alpha: 0.4
